@@ -4,6 +4,10 @@ import math
 import random
 
 pygame.init()
+#pygame.mixer.init()
+
+
+
 #clock=pygame.time.Clock()
 #game window
 screen =pygame.display.set_mode((800,600))
@@ -12,9 +16,11 @@ screen =pygame.display.set_mode((800,600))
 
 background=pygame.image.load("background.png")
 
-#background sound
-#mixer.music.load("background.wav")
-#mixer.music.play(-1)
+#background soun
+#pygame.mixer.pre_init(44100,-16,1,4096)
+
+mixer.music.load("background.wav")
+mixer.music.play(-1)
 
 
 #icon
@@ -98,8 +104,8 @@ while running:
                 playerx_change = +5
              if event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
-                    #bullets_sound=mixer.sound("thunder.wav")
-                    #bullets_sound.play()
+                    bullets_sound=mixer.Sound("laser.wav")
+                    bullets_sound.play()
                     bulletsx=playerx
                     fire_bullets(bulletsx,bulletsy)
 
@@ -128,8 +134,8 @@ while running:
         #iscollison
         collison=iscollison(enemyx[i],enemyy[i],bulletsx,bulletsy)
         if collison:
-            #explosion_sound=mixer.sound("thunder.wav")
-            #explosion_sound.play()
+            explosion_sound=mixer.Sound("explosion.wav")
+            explosion_sound.play()
             bulletsy=480
             bullet_state="ready"
             score_value+=1
